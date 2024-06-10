@@ -16,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		// http://localhost:5000
-		const socket = io("https://x-thunder-1.onrender.com", {
+		const socket = io("https://x-thunder-2.onrender.com", {
 			query: {
 				userId: user?._id,
 			},
