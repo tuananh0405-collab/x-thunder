@@ -38,7 +38,7 @@ const UserHeader = ({ user }) => {
 					<Flex gap={2} alignItems={"center"}>
 						<Text fontSize={"sm"}>{user.username}</Text>
 						<Text fontSize={"xs"} bg={"gray.dark"} color={"gray.light"} p={1} borderRadius={"full"}>
-							threads.net
+							x-thunder
 						</Text>
 					</Flex>
 				</Box>
@@ -82,7 +82,7 @@ const UserHeader = ({ user }) => {
 				<Flex gap={2} alignItems={"center"}>
 					<Text color={"gray.light"}>{user.followers.length} followers</Text>
 					<Box w='1' h='1' bg={"gray.light"} borderRadius={"full"}></Box>
-					<Link color={"gray.light"}>instagram.com</Link>
+					<Link color={"gray.light"}>x-thunder-2.onrender.com</Link>
 				</Flex>
 				<Flex>
 					<Box className='icon-container'>

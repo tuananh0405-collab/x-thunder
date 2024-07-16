@@ -1,4 +1,4 @@
-import { Button, Flex, Image, Link, useColorMode } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, Link, useColorMode } from "@chakra-ui/react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { AiFillHome } from "react-icons/ai";
@@ -9,58 +9,82 @@ import useLogout from "../hooks/useLogout";
 import authScreenAtom from "../atoms/authAtom";
 import { BsFillChatQuoteFill } from "react-icons/bs";
 import { MdOutlineSettings } from "react-icons/md";
-
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { Badge } from "@chakra-ui/react";
 const Header = () => {
-	const { colorMode, toggleColorMode } = useColorMode();
-	const user = useRecoilValue(userAtom);
-	const logout = useLogout();
-	const setAuthScreen = useSetRecoilState(authScreenAtom);
+  const { colorMode, toggleColorMode } = useColorMode();
+  const user = useRecoilValue(userAtom);
+  const logout = useLogout();
+  const setAuthScreen = useSetRecoilState(authScreenAtom);
 
-	return (
-		<Flex justifyContent={"space-between"} mt={6} mb='12'>
-			{user && (
-				<Link as={RouterLink} to='/'>
-					<AiFillHome size={24} />
-				</Link>
-			)}
-			{!user && (
-				<Link as={RouterLink} to={"/auth"} onClick={() => setAuthScreen("login")}>
-					Login
-				</Link>
-			)}
+  return (
+    <Flex justifyContent={"space-between"} mt={6} mb="12">
+      {user && (
+        <Link as={RouterLink} to="/">
+          <AiFillHome size={24} />
+        </Link>
+      )}
+      {!user && (
+        <Link
+          as={RouterLink}
+          to={"/auth"}
+          onClick={() => setAuthScreen("login")}
+        >
+          Login
+        </Link>
+      )}
 
-			<Image
-				cursor={"pointer"}
-				alt='logo'
-				w={6}
-				src={colorMode === "dark" ? "/ll.svg" : "/dl.svg"}
-				onClick={toggleColorMode}
-			/>
+      <Image
+        cursor={"pointer"}
+        alt="logo"
+        w={6}
+        src={colorMode === "dark" ? "/ll.svg" : "/dl.svg"}
+        onClick={toggleColorMode}
+      />
 
-			{user && (
-				<Flex alignItems={"center"} gap={4}>
-					<Link as={RouterLink} to={`/${user.username}`}>
-						<RxAvatar size={24} />
-					</Link>
-					<Link as={RouterLink} to={`/chat`}>
-						<BsFillChatQuoteFill size={20} />
-					</Link>
-					<Link as={RouterLink} to={`/settings`}>
-						<MdOutlineSettings size={20} />
-					</Link>
-					<Button size={"xs"} onClick={logout}>
-						<FiLogOut size={20} />
-					</Button>
-				</Flex>
-			)}
+      {user && (
+        <Flex alignItems={"center"} gap={4}>
+          <Box position="relative">
+            <Link as={RouterLink} to={`/${user.username}`}>
+              <IoMdNotificationsOutline size={24} />
+              <Badge
+                position="absolute"
+                top="-1"
+                right="-1"
+                fontSize="0.8em"
+                colorScheme="red"
+                borderRadius="full"
+              >
+                3
+              </Badge>
+            </Link>
+          </Box>
+          <Link as={RouterLink} to={`/${user.username}`}>
+            <RxAvatar size={24} />
+          </Link>
+          <Link as={RouterLink} to={`/chat`}>
+            <BsFillChatQuoteFill size={20} />
+          </Link>
+          <Link as={RouterLink} to={`/settings`}>
+            <MdOutlineSettings size={20} />
+          </Link>
+          <Button size={"xs"} onClick={logout}>
+            <FiLogOut size={20} />
+          </Button>
+        </Flex>
+      )}
 
-			{!user && (
-				<Link as={RouterLink} to={"/auth"} onClick={() => setAuthScreen("signup")}>
-					Sign up
-				</Link>
-			)}
-		</Flex>
-	);
+      {!user && (
+        <Link
+          as={RouterLink}
+          to={"/auth"}
+          onClick={() => setAuthScreen("signup")}
+        >
+          Sign up
+        </Link>
+      )}
+    </Flex>
+  );
 };
 
 export default Header;
